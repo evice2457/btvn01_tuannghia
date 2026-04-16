@@ -20,8 +20,19 @@ def generate_launch_description():
         ),
         Node(
             package='distance_warning',
-            executable= 'distance_listener',
+            executable='distance_publisher_qos',
+            name='distance_publisher_qos'
+        ),
+        Node(
+            package='distance_warning',
+            executable='distance_listener',
             name='distance_listener',
+            parameters=[{'threshold': threshold}]
+        ),
+        Node(
+            package='distance_warning',
+            executable='distance_listener_qos',
+            name='distance_listener_qos',
             parameters=[{'threshold': threshold}]
         ),
         Node(
@@ -35,5 +46,20 @@ def generate_launch_description():
             executable='distance_action_server',
             name='distance_action_server',
             parameters=[{'threshold': threshold}]
-        )
+        ),
+        Node(
+            package='distance_warning',
+            executable='distance_action_client',
+            name='distance_action_client'
+        ),
+        Node(
+            package='distance_warning',
+            executable='distance_tf_broadcaster',
+            name='distance_tf_broadcaster'
+        ),
+        Node(
+            package='distance_warning',
+            executable='distance_tf_listener',
+            name='distance_tf_listener'
+        ),
     ])
