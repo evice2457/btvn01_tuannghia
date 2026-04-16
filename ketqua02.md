@@ -1,27 +1,32 @@
-<img width="613" height="354" alt="Screenshot 2026-04-16 at 15 18 18" src="https://github.com/user-attachments/assets/511b42dc-70d0-47f7-9e51-0811a034aba9" /><img width="608" height="77" alt="Screenshot 2026-04-16 at 15 17 31" src="https://github.com/user-attachments/assets/98984d3d-d01a-4d59-8992-79ba5cd9e7bc" /><img width="615" height="114" alt="Screenshot 2026-04-16 at 15 16 40" src="https://github.com/user-attachments/assets/e3c28b5d-5055-49d1-9e3b-739f0eaed110" /># Tiêu chí 2 + 3: TF frames
-<img width="625" height="198" alt="Screenshot 2026-04-16 at 15 13 26" src="https://github.com/user-attachments/assets/037a6fa5-1b15-4b58-acc8-633793f86851" />
+| 1 | Package build không có warning sau khi thêm dependencies | `colcon build` |
+<img width="1083" height="164" alt="Screenshot 2026-04-16 at 16 41 45" src="https://github.com/user-attachments/assets/88a9ddaf-6640-466a-a3f7-f4909251088a" />
+
+| 2 | `distance_tf_broadcaster` broadcast đủ 2 frame lên `/tf` | `ros2 run tf2_ros tf2_echo base_link sensor_link` |
+<img width="2914" height="1542" alt="image" src="https://github.com/user-attachments/assets/6cd8426d-399b-40be-a6f8-6d2055c5b147" />
+
+| 3 | `sensor_link` x thay đổi theo giá trị `/distance_topic` | So sánh log publisher và tf2_echo |
+<img width="388" height="129" alt="Screenshot 2026-04-16 at 16 45 45" src="https://github.com/user-attachments/assets/cc7fa6f5-f174-4feb-a4de-c64485435720" />
+<img width="1043" height="647" alt="Screenshot 2026-04-16 at 16 45 31" src="https://github.com/user-attachments/assets/b8033d24-3639-4476-ba2f-c041c8403a55" />
+cả 2 ảnh đều có các số x = {0.867, 0.664}
+
+| 4 | `distance_tf_listener` tính đúng khoảng cách từ TF | Quan sát log |
+-> True
+
+| 5 | Khi sensor > `tf_threshold`, tự động gọi `/set_threshold` | Quan sát log cả 2 node |
+-> True
+
+| 6 | `/distance_reliable` publish đúng 1 Hz | `ros2 topic hz /distance_reliable` |
+<img width="1094" height="349" alt="Screenshot 2026-04-16 at 16 57 25" src="https://github.com/user-attachments/assets/c9b04902-634b-40d2-beaa-82bdfb754a46" />
+
+| 7 | `/distance_best_effort` publish đúng 10 Hz | `ros2 topic hz /distance_best_effort` |
+<img width="1158" height="454" alt="Screenshot 2026-04-16 at 16 58 16" src="https://github.com/user-attachments/assets/701412f4-e275-4593-a9c0-fe7de4b74dd9" />
 
 
-# Tiêu chí 4 + 5: TF listener (set threshold thấp để kích hoạt warning)
-<img width="606" height="131" alt="Screenshot 2026-04-16 at 15 14 06" src="https://github.com/user-attachments/assets/c522cb7c-f2d7-4e91-b219-e402ac5165a7" />
+| 8 | Bảng stats in đúng số lượng sau 5 giây | Quan sát log |
+<img width="847" height="526" alt="Screenshot 2026-04-16 at 17 01 19" src="https://github.com/user-attachments/assets/b4415016-d8a2-457f-9456-d875bdcd969d" />
 
+| 9 | QoS incompatible test → warning xuất hiện | `ros2 topic echo ... --qos-reliability reliable` |
+<img width="1463" height="159" alt="Screenshot 2026-04-16 at 17 02 39" src="https://github.com/user-attachments/assets/2ea3e1c2-df25-4026-9815-5ae514fc2d68" />
 
-# Tiêu chí 6 + 7: Kiểm tra Hz
-<img width="496" height="72" alt="Screenshot 2026-04-16 at 15 15 42" src="https://github.com/user-attachments/assets/483e1e4c-510c-44b7-acdb-0d275c8d8eb7" />
-
-<img width="583" height="117" alt="Screenshot 2026-04-16 at 15 16 13" src="https://github.com/user-attachments/assets/c5e9da75-afe3-48f9-8550-2beff9dcf566" />
-
-
-# Tiêu chí 8: Listener QoS stats
-<img width="615" height="115" alt="Screenshot 2026-04-16 at 15 16 51" src="https://github.com/user-attachments/assets/e6a050a9-58a3-4d6c-bc31-62eb9ecf6e51" />
-
-
-# Tiêu chí 9: Test QoS incompatible
-<img width="610" height="73" alt="Screenshot 2026-04-16 at 15 17 44" src="https://github.com/user-attachments/assets/f6953028-afcf-46a0-aa72-a32f74a51f11" />
-
-
-# Tiêu chí 10: Dùng launch file thay tất cả các lệnh trên
-<img width="613" height="408" alt="Screenshot 2026-04-16 at 15 18 28" src="https://github.com/user-attachments/assets/76e147a3-05d9-40e6-a313-a76f4a0e6121" />
-
-# Sau đó: ros2 node list
-<img width="607" height="210" alt="Screenshot 2026-04-16 at 15 18 49" src="https://github.com/user-attachments/assets/7c950602-6d31-499c-946a-d41391a956fd" />
+| 10 | Launch file full khởi động đủ 8 node | `rqt_graph` |
+<img width="1299" height="513" alt="Screenshot 2026-04-16 at 17 07 02" src="https://github.com/user-attachments/assets/72b90d3a-6d92-4ab5-944e-5f127b4f958b" />
